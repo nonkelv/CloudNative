@@ -1,4 +1,4 @@
-package exercise1;
+package org.exercise1;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

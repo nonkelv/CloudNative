@@ -1,4 +1,4 @@
-package exercise1;
+package org.exercise1;
 
 public class DataLine {
     final String license;
