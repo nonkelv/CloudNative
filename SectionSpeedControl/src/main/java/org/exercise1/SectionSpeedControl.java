@@ -10,24 +10,24 @@ import java.util.List;
 public class SectionSpeedControl {
     private final List<DataLine> measurements = new ArrayList<>();
     private final double lengthKm;
-    private final int speedLimit;
+    private final double speedLimit;
 
     private static final int hourMs = 60 * 60 * 1000;
 
-    SectionSpeedControl(double distance, int speedLimit) {
+    SectionSpeedControl(double distance, double speedLimit) {
         this.lengthKm = distance;
         this.speedLimit = speedLimit;
     }
 
     void exercise1(String fileName) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(fileName));
-        String line = reader.readLine();
-        while (line != null) {
-            DataLine dl = new DataLine(line);
-            measurements.add(dl);
-            line = reader.readLine();
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line = reader.readLine();
+            while (line != null) {
+                DataLine dl = new DataLine(line);
+                measurements.add(dl);
+                line = reader.readLine();
+            }
         }
-        reader.close();
     }
 
     void exercise2() {
@@ -77,9 +77,9 @@ public class SectionSpeedControl {
     void exercise5() {
         System.out.println("Exercise 5.");
         DataLine theFastest = null;
-        int maxSpeed = 0;
+        double maxSpeed = 0;
         for (DataLine dl : measurements) {
-            int speed = dl.getSpeed(lengthKm);
+            double speed = dl.getSpeed(lengthKm);
             if (theFastest == null || speed > maxSpeed) {
                 maxSpeed = speed;
                 theFastest = dl;
@@ -92,7 +92,7 @@ public class SectionSpeedControl {
         }
         System.out.println("The data of the vehicle with the highest speed are");
         System.out.println("license plate number: " + theFastest.license);
-        System.out.printf("average speed: %d km/h%n", maxSpeed);
+        System.out.printf("average speed: %.2f km/h%n", maxSpeed);
         System.out.printf("number of overtaken vehicles: %d%n%n", overtakenCounter);
     }
 
@@ -100,8 +100,8 @@ public class SectionSpeedControl {
         System.out.println("Exercise 6.");
         int speedingCounter = 0;
         for (DataLine dl : measurements) {
-            int speed = dl.getSpeed(lengthKm);
-            if (speed >= speedLimit)
+            double speed = dl.getSpeed(lengthKm);
+            if (speed > speedLimit)
                 ++speedingCounter;
         }
         System.out.printf("%.2f%% percent of the vehicles were speeding.", 100.0 * speedingCounter / measurements.size());

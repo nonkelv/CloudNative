@@ -20,9 +20,9 @@ public class DataLine {
         exitTimeMs = exitMs + 1000 * (exitSecond + 60 * (exitMinute + 60 * exitHour));
     }
 
-    public int getSpeed(double distance) {
+    public double getSpeed(double distance) {
         int elapsedMs = exitTimeMs - entranceTimeMs;
-        return  (int) (distance * 3600000 / elapsedMs);
+        return distance * 3600000 / elapsedMs;
     }
 
 }
