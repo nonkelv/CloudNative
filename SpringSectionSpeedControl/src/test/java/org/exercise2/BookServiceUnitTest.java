@@ -22,6 +22,6 @@ public class BookServiceUnitTest {
         List<Book> books = bookService.list();
 
         assertEquals(3, books.size());
-        System.out.println("Did it!");
+        System.out.println("Did it!"); // just to learn if and where this gets executed
     }
 }
