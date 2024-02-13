@@ -4,7 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
-@Entity(name="BOOK") // seems to work just fine? But how do I check the database?
+@Entity(name="BOOK") // name not needed in this version
 public class Book {
     @Id
     @GeneratedValue
